@@ -1,0 +1,5 @@
+# Python cache
+__pycache__
+
+# Make sure not to upload any databases
+*.db
