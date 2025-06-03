@@ -85,6 +85,7 @@ class CardRepository:
                 card.card_description,
                 card.card_art,
                 distributor_id[0],))
+            self.con.commit()
             return True
         finally:
             cur.close()
@@ -121,7 +122,8 @@ class CardRepository:
                     cardID,
                     deckID
                 ) VALUES (?, ?)
-                """, (card_id, deck_id,))
+                """, (card_id, deck_id[0],))
+            self.con.commit()
             return True
         finally:
             cur.close()
@@ -136,6 +138,7 @@ class CardRepository:
                     distributorName
                 ) VALUES (?)
                 """, (name,))
+            self.con.commit()
             return True
         finally:
             cur.close()
