@@ -112,17 +112,20 @@ class CardRepository:
             if deck_id is None:
                 cur.execute("""
                     INSERT INTO deck (
-                        deckID,
                         deckName
-                    ) VALUES (?, ?)
-                    """, (deck_id, deck_name,))
-
+                    ) VALUES (?)
+                    """, (deck_name,))
+                deck_id = cur.execute("""
+                    SELECT deckID
+                    FROM deck
+                    WHERE deckName = ?
+                    """, (deck_name,)).fetchone()
             cur.execute("""
                 INSERT INTO cardDeckLink (
                     cardID,
                     deckID
                 ) VALUES (?, ?)
-                """, (card_id, deck_id[0],))
+                """, (card_id[0], deck_id[0],))
             self.con.commit()
             return True
         finally:
